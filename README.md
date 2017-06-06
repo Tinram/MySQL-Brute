@@ -4,7 +4,7 @@
 
 ### MySQL bruteforcer.
 
-##### MySQL Brute v.0.09
+##### MySQL Brute v.0.10
 
 
 ## Purpose

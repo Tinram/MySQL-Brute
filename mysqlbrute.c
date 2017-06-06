@@ -6,7 +6,7 @@
 	*
 	* @author        Martin Latter
 	* @copyright     Martin Latter, 27/05/2017
-	* @version       0.09
+	* @version       0.10
 	* @license       GNU GPL version 3.0 (GPL v3); https://www.gnu.org/licenses/gpl-3.0.html
 	* @link          https://github.com/Tinram/MySQL-Brute.git
 	*
@@ -30,7 +30,7 @@
 #include <mysql.h>
 
 
-#define MB_VERSION "0.09"
+#define MB_VERSION "0.10"
 #define MAX_WORD_LEN 50
 
 
@@ -101,7 +101,7 @@ int main(int iArgCount, char* aArgV[]) {
 
 		if (iWordCount % 1000 == 0) {
 
-			fprintf(stdout, "line: %d\r", iWordCount);
+			fprintf(stdout, "line: %u\r", iWordCount);
 			fflush(stdout);
 		}
 
@@ -117,7 +117,7 @@ int main(int iArgCount, char* aArgV[]) {
 		fprintf(stdout, "\n\nNo password match.\n");
 	}
 
-	fprintf(stdout, "\nwords parsed: %d\n", iWordCount);
+	fprintf(stdout, "\nwords parsed: %u\n", iWordCount);
 
 	/* timer end */
 	tDiff = clock() - tStart;
