@@ -7,6 +7,10 @@
 ##### MySQL Brute v.0.10
 
 
+[1]: https://tinram.github.io/images/mysqlbrute.png
+![mysqlbrute][1]
+
+
 ## Purpose
 
 Brute force mysqld using a wordlist file.
@@ -14,7 +18,7 @@ Brute force mysqld using a wordlist file.
 MySQL Brute was created for localhost account recovery: where the root account is inaccessible and an ordinary user password is lost.
 
 
-## OS Support
+## OS
 
 + Linux
 
@@ -25,9 +29,11 @@ MySQL Brute was created for localhost account recovery: where the root account i
 
     ./mysqlbrute -h <host> -u <username> -f <wordlist_file>
 
+    ./mysqlbrute -h localhost -u wordpress -f top_100000.txt
+
 There are many wordlists available e.g. [Daniel Miessler's](https://github.com/danielmiessler).
 
-Alternatively a quick wordlist for testing is the Linux dictionary (Debian path):
+Alternatively a simple list for testing is the Linux dictionary (Debian path):
 
     ./mysqlbrute -h localhost -u <username> -f /usr/share/dict/words
 
@@ -40,9 +46,9 @@ Other options:
 
 The speed bottlenecks are: the MySQL connect (mysql\_real\_connect()), MySQL spawning only a limited number of threads for connections, and - if not a localhost connection - the network connection. (MySQL localhost connection uses a socket instead of TCP/IP.).
 
-MySQL Brute churns through approximately 10,000 to 20,000 passwords per second on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute. When using a network connection, it's much slower.
+MySQL Brute churns through approximately 20,000 passwords per second on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute. When using a network connection, it's much slower.
 
-MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine.  However, with MySQL bottlenecks and some program instability on large wordlists, I have abandoned multi-threading.
+MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine. However, with MySQL bottlenecks and some program instability on large wordlists, I have abandoned multi-threading.
 
 
 ## Build
@@ -52,6 +58,10 @@ MySQL Brute can be quite easily converted to multi-threading with the OMP librar
 Ensure the *libmysqlclient-dev* library (from the repo) is installed:
 
     locate libmysqlclient-dev
+
+If `locate` does not find the library, install on Debian-based distros with:
+
+    sudo apt-get install libmysqlclient-dev
 
 In the directory containing either the clone or the extracted zip files, compile with GCC:
 
