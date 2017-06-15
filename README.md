@@ -46,9 +46,9 @@ Other options:
 
 The speed bottlenecks are: the MySQL connect (mysql\_real\_connect()), MySQL spawning only a limited number of threads for connections, and - if not a localhost connection - the network connection. (MySQL localhost connection uses a socket instead of TCP/IP.).
 
-MySQL Brute churns through approximately 20,000 passwords per second on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute. When using a network connection, it's much slower.
+MySQL Brute churns through approximately 20,000 passwords per second on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute. However, when using a network connection, it is much slower.
 
-MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine. However, with MySQL bottlenecks and some program instability on large wordlists, I have abandoned multi-threading.
+MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine. However, with MySQL bottlenecks, and some program instability on large wordlists, I abandoned multi-threading.
 
 
 ## Build
@@ -89,6 +89,13 @@ It's more convenient for MySQL Brute to be available from any directory location
     make install
 
 Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (location must be present in $PATH).
+
+
+## Hydra Comparison
+
+    hydra -l wordpress -P top_100000.txt -t 4 -F localhost mysql
+
+(As for the example in **Usage**, using 4 threads, 640 tries/sec on i3 laptop.)
 
 
 ## Credits
