@@ -13,7 +13,7 @@
 
 ## Purpose
 
-Brute force mysqld using a wordlist file.
+Brute force a MySQL user using a wordlist file.
 
 MySQL Brute was created for localhost account recovery: where the root account is inaccessible and an ordinary user password is lost.
 
@@ -44,11 +44,11 @@ Other options:
 
 ## Speed
 
-The speed bottlenecks are: the MySQL connect (mysql\_real\_connect()), MySQL spawning only a limited number of threads for connections, and - if not a localhost connection - the network connection. (MySQL localhost connection uses a socket instead of TCP/IP.).
+The speed bottlenecks are: the MySQL connect (mysql\_real\_connect()), MySQL spawning only a limited number of threads for connections, and - if not a localhost connection - the network connection. (MySQL localhost connection uses a socket instead of TCP/IP.)
 
-MySQL Brute churns through approximately 20,000 passwords per second on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute. However, when using a network connection, it is much slower.
+MySQL Brute churns through approximately 20,000 passwords per second on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, even the multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
 
-MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine. However, with MySQL bottlenecks, and some program instability on large wordlists, I abandoned multi-threading.
+MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine. However, with MySQL connections being the bottleneck, and some program instability on large wordlists, I abandoned multi-threading.
 
 
 ## Build
@@ -95,7 +95,7 @@ Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (loca
 
     hydra -l wordpress -P top_100000.txt -t 4 -F localhost mysql
 
-(As for the example in **Usage**, using 4 threads, 640 tries/sec on i3 laptop.)
+(As per example in **Usage**, using 4 threads, 640 tries/sec on an i3 laptop.)
 
 
 ## Credits
