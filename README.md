@@ -2,7 +2,7 @@
 # MySQL Brute
 
 
-### MySQL bruteforcer.
+### MySQL brute-forcer.
 
 ##### MySQL Brute v.0.10
 
@@ -15,7 +15,7 @@
 
 Brute force a MySQL user using a wordlist file.
 
-MySQL Brute was created for localhost account recovery: where the root account is inaccessible and an ordinary user password is lost.
+MySQL Brute was created for localhost account recovery: where the root account is inaccessible and an ordinary user password is lost. PLESK-managed MySQL is a candidate.
 
 
 ## OS
@@ -44,7 +44,11 @@ Other options:
 
 ## Speed
 
-The speed bottlenecks are: the MySQL connect (mysql\_real\_connect()), MySQL spawning only a limited number of threads for connections, and - if not a localhost connection - the network connection. (MySQL localhost connection uses a socket instead of TCP/IP.)
+MySQL Brute's speed bottlenecks are:
+
++ MySQL connect ( *mysql\_real\_connect()* ),
++ MySQL spawning only a limited number of threads for connections,
++ if not a localhost connection, the network connection (MySQL localhost connection uses a socket instead of TCP/IP).
 
 MySQL Brute churns through approximately 50,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, even the multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
 
@@ -84,7 +88,11 @@ compile manually:
 
 ## Other
 
-MySQL Brute will rapidly fill the MySQL error log file ( */var/log/mysql/error.log* for Debian-based distros).
+### Warning
+
+MySQL Brute will rapidly enlarge the MySQL error log file ( */var/log/mysql/error.log* for Debian-based distros).
+
+### Location
 
 It's more convenient for MySQL Brute to be available from any directory location via the PATH system variable (rather than copying the executable file to the directory where needed).
 
@@ -97,7 +105,7 @@ Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (loca
 
     hydra -l wordpress -P top_100000.txt -t 4 -F localhost mysql
 
-(As per example in **Usage**, using 4 threads, 1,047 tries per second on a Core i3.)
+(As per the example in **Usage**, using 4 threads, ~1,050 tries per second on a Core i3.)
 
 
 ## Credits
