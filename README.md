@@ -42,6 +42,11 @@ Other options:
     -p <port_number>
 
 
+## Binaries
+
+Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases).
+
+
 ## Speed
 
 MySQL Brute's speed bottlenecks are:
@@ -54,10 +59,47 @@ MySQL Brute churns through approximately 50,000 passwords per second (vanilla Co
 
 MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine. However, with MySQL connections being the bottleneck, and some program instability on large wordlists, I abandoned multi-threading.
 
+### Hydra Comparison
 
-## Binaries
+    hydra -l wordpress -P top_100000.txt -t 4 -F localhost mysql
 
-Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases).
+(As per the example in **Usage**, using 4 threads, ~1,050 tries per second on a Core i3.)
+
+
+## Diagnosing Remote MySQL Connections
+
+Unless you intimately know the MySQL set-up on a remote server, some of MySQL's configuration can silently (and righteously) impede MySQL Brute.
+
+First attempt to connect to a remote MySQL connection from the terminal (use any password when prompted):
+
+    mysql -h <ip_addr> -u wordpress -p
+
+*ERROR 1045 (28000): Access denied for user 'wordpress'@'host' (using password: YES)*
+
+... shows MySQL is accepting remote user connections.
+
+*ERROR 2003 (HY000): Can't connect to MySQL server on 'host' (111)*
+
+... will be the bind address locked to localhost or a blocking firewall rule, or both.
+
+### Checklist
+
++ bind-address = 127.0.0.1 (*my.cnf*, comment out with `#`, restart mysqld)
++ firewall rules
++ `mysql> SELECT host, user FROM mysql.user;`
+
+---
+    +-------------+------------+
+    | host        | user       |
+    +-------------+------------+
+    | localhost   | wordpress  |
+    | 10.0.0.%    | xyz        |
+    +-------------+------------+
+---
+... no remote connection permitted for user *wordpress*, but local network access for user *xyz*)
+
++ mysqld can listen on a port other than 3306 (for port 3307, use `mysqlbrute ... -p 3307`)
++ mysqld is down (on the server, use `pgrep mysql`)
 
 
 ## Build
@@ -80,7 +122,7 @@ or full process:
 
     make && make install
 
-compile manually:
+#### Compile Manually
 
 **GCC:**
 
@@ -104,13 +146,6 @@ It's more convenient for MySQL Brute to be available from any directory location
     make install
 
 Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (location must be present in $PATH).
-
-
-## Hydra Comparison
-
-    hydra -l wordpress -P top_100000.txt -t 4 -F localhost mysql
-
-(As per the example in **Usage**, using 4 threads, ~1,050 tries per second on a Core i3.)
 
 
 ## Credits
