@@ -44,6 +44,9 @@ Other options:
 
 ## Binaries
 
++ x86 64-bit
++ ARM 32-bit
+
 Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases).
 
 
@@ -51,7 +54,7 @@ Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases).
 
 MySQL Brute's speed bottlenecks are:
 
-+ MySQL connect ( *mysql\_real\_connect()* ),
++ MySQL connect ( `mysql_real_connect()` ),
 + MySQL spawning only a limited number of threads for connections,
 + if not a localhost connection, the network connection (MySQL localhost connection uses a socket instead of TCP/IP).
 
@@ -84,7 +87,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 ### Checklist
 
-+ bind-address = 127.0.0.1 (*my.cnf*, comment out with `#`, restart mysqld)
++ bind-address = 127.0.0.1 (*my.cnf*, comment out this line with `#`, restart mysqld)
 + firewall rules
 + `mysql> SELECT host, user FROM mysql.user;`
 
