@@ -68,6 +68,14 @@ MySQL Brute can be quite easily converted to multi-threading with the OMP librar
 
 (As per the example in **Usage**, using 4 threads, ~1,050 tries per second on a Core i3.)
 
+### Nmap Comparison
+
+Nmap has a MySQL attack script which cycles through common usernames.
+
+On same Core i3:
+
+*Statistics: Performed 50009 guesses in 9 seconds, average tps: 5556*
+
 
 ## Diagnosing Remote MySQL Connections
 
@@ -87,7 +95,8 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 ### Checklist
 
-+ bind-address = 127.0.0.1 (*my.cnf*, comment out this line with `#`, restart mysqld)
++ bind-address = 127.0.0.1 (*my.cnf*; if line present: comment out with `#`, restart mysqld)
++ skip-networking (*my.cnf*; disables TCP/IP, if line present: comment out with `#`, restart mysqld)
 + firewall rules
 + `mysql> SELECT host, user FROM mysql.user;`
 
