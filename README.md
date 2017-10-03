@@ -58,9 +58,7 @@ MySQL Brute's speed bottlenecks are:
 + MySQL spawning only a limited number of threads for connections,
 + if not a localhost connection, the network connection (MySQL localhost connection uses a socket instead of TCP/IP).
 
-MySQL Brute churns through approximately 50,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
-
-MySQL Brute can be quite easily converted to multi-threading with the OMP library. On an intermediate-sized wordlist, the OMP version was 3 seconds faster on the same machine. However, with MySQL connections being the bottleneck, and some program instability on large wordlists, I abandoned multi-threading.
+MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
 
 ### Hydra Comparison
 
