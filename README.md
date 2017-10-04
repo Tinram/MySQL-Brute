@@ -37,6 +37,8 @@ Alternatively a simple list for testing is the Linux dictionary (Debian path):
 
     ./mysqlbrute -h localhost -u <username> -f /usr/share/dict/words
 
+`MAX_WORD_LEN` of `50` in *mysqlbrute.c* is fine for most wordlists. However, some wordlists have borked entries (e.g. long email address). For these wordlists, increase `MAX_WORD_LEN` to `140` (or, more precisely, output of `wc -L <wordlist_file>` + 1), and re-compile to avoid a buffer overrun / segfault.
+
 Other options:
 
     -p <port_number>
