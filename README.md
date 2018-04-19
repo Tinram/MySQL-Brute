@@ -37,7 +37,7 @@ Alternatively a simple list for testing is the Linux dictionary (Debian path):
 
     ./mysqlbrute -h localhost -u <username> -f /usr/share/dict/words
 
-`MAX_WORD_LEN` of `50` in *mysqlbrute.c* is fine for most wordlists. However, some wordlists have borked entries (e.g. long email address). For these wordlists, increase `MAX_WORD_LEN` to `140` (or, more precisely, output of `wc -L <wordlist_file>` + 1), and re-compile to avoid a buffer overrun / segfault.
+`MAX_WORD_LEN` of `50` in *mysqlbrute.c* is fine for most wordlists. However, some wordlists have borked entries (e.g. long email addresses included). For these wordlists, increase `MAX_WORD_LEN` to `140` (or, more precisely, output of `wc -L <wordlist_file>` + 1), and re-compile to avoid the resultant buffer overrun / segfault.
 
 Other options:
 
@@ -60,7 +60,7 @@ MySQL Brute's speed bottlenecks are:
 + MySQL spawning only a limited number of threads for connections,
 + if not a localhost connection, the network connection (MySQL localhost connection uses a socket instead of TCP/IP).
 
-MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
+MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the vaunted multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
 
 ### Hydra Comparison
 
@@ -95,7 +95,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 ### Checklist
 
-+ bind-address = 127.0.0.1 (*my.cnf*; if line present: comment out with `#`, restart mysqld)
++ bind-address = 127.0.0.1 (*my.cnf*; if line present: comment out with `#`, then restart mysqld)
 + skip-networking (*my.cnf*; disables TCP/IP, if line present: comment out with `#`, restart mysqld)
 + firewall rules
 + `mysql> SELECT host, user FROM mysql.user;`
@@ -111,20 +111,20 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 ... no remote connection permitted for user *wordpress*, but local network access for user *xyz*)
 
 + mysqld can listen on a port other than 3306 (for port 3307, use `mysqlbrute ... -p 3307`)
-+ mysqld is down (on the server, use `pgrep mysql`)
++ mysqld is down (on the server command-line, use `pgrep mysql`)
 
 
 ## Build
 
 ### Linux-only
 
-Ensure the *libmysqlclient-dev* library (from the repo) is installed:
+Ensure the *libmysqlclient-dev* library (from distro repo) is installed:
 
     locate libmysqlclient-dev
 
 If `locate` does not find the library, install on Debian-based distros with:
 
-    sudo apt-get install libmysqlclient-dev
+    sudo apt install libmysqlclient-dev
 
 In the directory containing either the clone or the extracted zip files, compile with GCC:
 
@@ -153,11 +153,11 @@ MySQL Brute will rapidly enlarge the MySQL error log file ( */var/log/mysql/erro
 
 ### Location
 
-It's more convenient for MySQL Brute to be available from any directory location via the PATH system variable (rather than copying the executable file to the directory where needed).
+It is more convenient for MySQL Brute to be available from any directory location via the *$PATH* system variable (rather than copying the executable file to the directory where needed).
 
     make install
 
-Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (location must be present in $PATH).
+Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (location must be present in *$PATH*).
 
 
 ## Credits
