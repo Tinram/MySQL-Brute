@@ -1,7 +1,6 @@
 
 # MySQL Brute
 
-
 ### MySQL brute-forcer.
 
 ##### MySQL Brute v.0.10
@@ -44,15 +43,17 @@ Other options:
     -p <port_number>
 
 
-## Binaries
+## Executables
 
 + x86 64-bit
 + ARM 32-bit
 
-Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases).
+Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases/latest).
 
 
 ## Speed
+
+MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection &ndash; considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the vaunted multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
 
 MySQL Brute's speed bottlenecks are:
 
@@ -60,7 +61,8 @@ MySQL Brute's speed bottlenecks are:
 + MySQL spawning only a limited number of threads for connections,
 + if not a localhost connection, the network connection (MySQL localhost connection uses a socket instead of TCP/IP).
 
-MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection - considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the vaunted multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
+If more speed is needed, there is 0x0mar's multi-threaded [Mysql-bruteforce](https://github.com/0x0mar/Mysql-bruteforce) or [my fork](https://github.com/Tinram/Mysql-bruteforce).
+
 
 ### Hydra Comparison
 
@@ -95,8 +97,8 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 ### Checklist
 
-+ bind-address = 127.0.0.1 (*my.cnf*; if line present: comment out with `#`, then restart mysqld)
-+ skip-networking (*my.cnf*; disables TCP/IP, if line present: comment out with `#`, restart mysqld)
++ `bind-address = 127.0.0.1` (*my.cnf*; if line present: comment out with `#`, then restart mysqld)
++ `skip-networking` (*my.cnf*; disables TCP/IP, if line present: comment out with `#`, restart mysqld)
 + firewall rules
 + `mysql> SELECT host, user FROM mysql.user;`
 
@@ -108,15 +110,15 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
     | 10.0.0.%    | xyz        |
     +-------------+------------+
 ---
-... no remote connection permitted for user *wordpress*, but local network access for user *xyz*)
+... no remote connection permitted for user *wordpress*, but local network access for user *xyz*.
 
 + mysqld can listen on a port other than 3306 (for port 3307, use `mysqlbrute ... -p 3307`)
-+ mysqld is down (on the server command-line, use `pgrep mysql`)
++ mysqld is down (on the server command-line, use: `pgrep mysql`)
 
 
 ## Build
 
-### Linux-only
+### Linux
 
 Ensure the *libmysqlclient-dev* library (from distro repo) is installed:
 
