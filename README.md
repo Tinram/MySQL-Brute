@@ -53,7 +53,7 @@ Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases/latest).
 
 ## Speed
 
-MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection &ndash; considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the vaunted multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower.
+MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection &ndash; considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the vaunted multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower &ndash; around 1,000 per second on a local network.
 
 MySQL Brute's speed bottlenecks are:
 
@@ -61,7 +61,7 @@ MySQL Brute's speed bottlenecks are:
 + MySQL spawning only a limited number of threads for connections,
 + if not a localhost connection, the network connection (MySQL localhost connection uses a socket instead of TCP/IP).
 
-If more speed is needed, there is 0x0mar's multi-threaded [Mysql-bruteforce](https://github.com/0x0mar/Mysql-bruteforce) or [my fork](https://github.com/Tinram/Mysql-bruteforce).
+If more speed is needed, there is 0x0mar's multi-threaded [Mysql-bruteforce](https://github.com/0x0mar/Mysql-bruteforce) or [my fork](https://github.com/Tinram/Mysql-bruteforce) of this.
 
 
 ### Hydra Comparison
