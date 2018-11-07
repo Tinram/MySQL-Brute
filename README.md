@@ -14,7 +14,13 @@
 
 Brute force a MySQL user using a wordlist file.
 
-MySQL Brute was created for localhost account recovery: where the root account is inaccessible and an ordinary user password is lost. PLESK-managed MySQL is a candidate.
+MySQL Brute was created for localhost account recovery:
+
++ root account inaccessible
++ mysqld not to be restarted in safe mode for root reset
++ ordinary user password is lost.
+
+PLESK-managed MySQL is a candidate.
 
 
 ## OS
