@@ -14,3 +14,6 @@ $(NAME):
 install:
 	sudo cp $(NAME) /usr/local/bin/$(NAME)
 	@echo "Attempted to copy $(NAME) to /usr/local/bin"
+
+deps:
+	sudo apt install libmysqlclient-dev
