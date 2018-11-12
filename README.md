@@ -126,11 +126,25 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 ### Linux
 
-Ensure the *libmysqlclient-dev* library (from distro repo) is installed:
+
+#### Make Installation
+
+    make deps && make && make install
+
+(Assumes *libmysqlclient-dev* is not installed.)
+
+
+#### Manual Installation
+
+Ensure the *libmysqlclient-dev* library dependency (from distro repo) is installed:
 
     locate libmysqlclient-dev
 
 If `locate` does not find the library, install on Debian-based distros with:
+
+    make deps
+
+or:
 
     sudo apt install libmysqlclient-dev
 
@@ -138,11 +152,7 @@ In the directory containing either the clone or the extracted zip files, compile
 
     make
 
-or full process:
-
-    make && make install
-
-#### Compile Manually
+or:
 
 **GCC:**
 
