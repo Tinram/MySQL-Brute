@@ -14,7 +14,8 @@
 
 Brute force a MySQL user using a wordlist file.
 
-MySQL Brute was created for localhost account recovery:
+MySQL Brute was created for localhost account recovery  
+e.g.
 
 + root account inaccessible
 + mysqld not to be restarted in safe mode for root reset
@@ -30,17 +31,21 @@ PLESK-managed MySQL is a candidate.
 
 ## Usage
 
+```bash
     ./mysqlbrute --help
 
     ./mysqlbrute -h <host> -u <username> -f <wordlist_file>
 
     ./mysqlbrute -h localhost -u wordpress -f top_100000.txt
+```
 
 There are many wordlists available e.g. [Daniel Miessler's](https://github.com/danielmiessler/SecLists/tree/master/Passwords).
 
 Alternatively a simple list for testing is the Linux dictionary (Debian path):
 
+```bash
     ./mysqlbrute -h localhost -u <username> -f /usr/share/dict/words
+```
 
 `MAX_WORD_LEN` of `50` in *mysqlbrute.c* is fine for most wordlists. However, some wordlists have borked entries (e.g. long email addresses included). For these wordlists, increase `MAX_WORD_LEN` to `140` (or, more precisely, output of `wc -L <wordlist_file>` + 1), and re-compile to avoid the resultant buffer overrun / segfault.
 
@@ -91,7 +96,9 @@ Unless you intimately know the MySQL set-up on a remote server, some of MySQL's 
 
 First attempt to connect to a remote MySQL connection from the terminal (use any password when prompted):
 
+```bash
     mysql -h <ip_addr> -u wordpress -p
+```
 
 *ERROR 1045 (28000): Access denied for user 'wordpress'@'host' (using password: YES)*
 
@@ -104,7 +111,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 ### Checklist
 
 + `bind-address = 127.0.0.1` (*my.cnf*; if line present: comment out with `#`, then restart mysqld)
-+ `skip-networking` (*my.cnf*; disables TCP/IP, if line present: comment out with `#`, restart mysqld)
++ `skip-networking` (*my.cnf* - disables TCP/IP; if line present, comment out with `#`, then restart mysqld)
 + firewall rules
 + `mysql> SELECT host, user FROM mysql.user;`
 
@@ -129,7 +136,9 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 #### Make Installation
 
+```bash
     make deps && make && make install
+```
 
 (Assumes *libmysqlclient-dev* is not installed.)
 
@@ -138,29 +147,41 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 Ensure the *libmysqlclient-dev* library dependency (from distro repo) is installed:
 
+```bash
     locate libmysqlclient-dev
+```
 
 If `locate` does not find the library, install on Debian-based distros with:
 
+```bash
     make deps
+```
 
 or:
 
+```bash
     sudo apt install libmysqlclient-dev
+```
 
 In the directory containing either the clone or the extracted zip files, compile with GCC:
 
+```bash
     make
+```
 
 or:
 
 **GCC:**
 
+```bash
     gcc mysqlbrute.c $(mysql_config --cflags) $(mysql_config --libs) -o mysqlbrute -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
+```
 
 **Clang:**
 
+```bash
     clang mysqlbrute.c $(mysql_config --cflags) $(mysql_config --libs) -o mysqlbrute -O3 -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
+```
 
 
 ## Other
@@ -173,7 +194,9 @@ MySQL Brute will rapidly enlarge the MySQL error log file ( */var/log/mysql/erro
 
 It is more convenient for MySQL Brute to be available from any directory location via the *$PATH* system variable (rather than copying the executable file to the directory where needed).
 
+```bash
     make install
+```
 
 Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (location must be present in *$PATH*).
 
