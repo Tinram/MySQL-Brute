@@ -14,12 +14,12 @@
 
 Brute force a MySQL user using a wordlist file.
 
-MySQL Brute was created for localhost account recovery  
+MySQL Brute was created for MySQL localhost account recovery  
 e.g.
 
 + root account inaccessible
-+ mysqld not to be restarted in safe mode for root reset
-+ ordinary user password is lost.
++ mysqld not able to be restarted in safe mode for root reset
++ user password is lost.
 
 PLESK-managed MySQL is a candidate.
 
@@ -39,7 +39,7 @@ PLESK-managed MySQL is a candidate.
     ./mysqlbrute -h localhost -u wordpress -f top_100000.txt
 ```
 
-There are many wordlists available e.g. [Daniel Miessler's](https://github.com/danielmiessler/SecLists/tree/master/Passwords).
+There are many wordlist files available e.g. [Daniel Miessler's](https://github.com/danielmiessler/SecLists/tree/master/Passwords).
 
 Alternatively a simple list for testing is the Linux dictionary (Debian path):
 
@@ -126,7 +126,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 ... no remote connection permitted for user *wordpress*, but local network access for user *xyz*.
 
 + mysqld can listen on a port other than 3306 (for port 3307, use `mysqlbrute ... -p 3307`)
-+ mysqld is down (on the server command-line, use: `pgrep mysql`)
++ mysqld is down (on the server command-line, use: `pgrep mysql` &ndash no number output means mysqld is not running)
 
 
 ## Build
@@ -140,7 +140,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
     make deps && make && make install
 ```
 
-(Assumes *libmysqlclient-dev* is not installed.)
+(Assumes *libmysqlclient-dev* library is not installed.)
 
 
 #### Manual Installation
