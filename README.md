@@ -21,7 +21,7 @@ e.g.
 + mysqld not able to be restarted in safe mode for root reset
 + user password is lost.
 
-PLESK-managed MySQL is a candidate.
+PLESK-managed MySQL *admin* user is a candidate.
 
 
 ## OS
@@ -41,13 +41,13 @@ PLESK-managed MySQL is a candidate.
 
 There are many wordlist files available e.g. [Daniel Miessler's](https://github.com/danielmiessler/SecLists/tree/master/Passwords).
 
-Alternatively a simple list for testing is the Linux dictionary (Debian path):
+Alternatively a simple wordlist for testing can be the Linux dictionary (Debian path):
 
 ```bash
     ./mysqlbrute -h localhost -u <username> -f /usr/share/dict/words
 ```
 
-`MAX_WORD_LEN` of `50` in *mysqlbrute.c* is fine for most wordlists. However, some wordlists have borked entries (e.g. long email addresses included). For these wordlists, increase `MAX_WORD_LEN` to `140` (or, more precisely, output of `wc -L <wordlist_file>` + 1), and re-compile to avoid the resultant buffer overrun / segfault.
+`MAX_WORD_LEN` of `50` in *mysqlbrute.c* is fine for most wordlists. However, some wordlists have borked entries (e.g. long email addresses included). For such wordlists, increase `MAX_WORD_LEN` to `140` (or more precisely, the output of `wc -L <wordlist_file>` + 1), and re-compile to avoid the resultant buffer overrun / segfault.
 
 Other options:
 
@@ -59,7 +59,7 @@ Other options:
 + x86 64-bit
 + ARM 32-bit
 
-Download from [Releases](https://github.com/Tinram/MySQL-Brute/releases/latest).
+Download the executables from [Releases](https://github.com/Tinram/MySQL-Brute/releases/latest).
 
 
 ## Speed
@@ -94,7 +94,7 @@ On same Core i3:
 
 Unless you intimately know the MySQL set-up on a remote server, some of MySQL's configuration can silently (and righteously) impede MySQL Brute.
 
-First attempt to connect to a remote MySQL connection from the terminal (use any password when prompted):
+First attempt to connect to a remote MySQL connection from the terminal (use any random input when prompted for password):
 
 ```bash
     mysql -h <ip_addr> -u wordpress -p
@@ -126,7 +126,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 ... no remote connection permitted for user *wordpress*, but local network access for user *xyz*.
 
 + mysqld can listen on a port other than 3306 (for port 3307, use `mysqlbrute ... -p 3307`)
-+ mysqld is down (on the server command-line, use: `pgrep mysql` &ndash no number output means mysqld is not running)
++ mysqld is down (on the server command-line, use: `pgrep mysql` &ndash; no number output means mysqld is not running).
 
 
 ## Build
@@ -203,7 +203,7 @@ Or move the *mysqlbrute* executable to a location such as */usr/local/bin* (loca
 
 ## Credits
 
-+ MMxM: Bash script that inspired.
++ MMxM: slow Bash script that inspired.
 + Vivek Gite: MySQL libraries compiling.
 + Tim Čas: elegant EOL removal.
 + Ben Alpert: microsecond timer.
