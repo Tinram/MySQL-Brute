@@ -17,3 +17,4 @@ install:
 
 deps:
 	sudo apt install libmysqlclient-dev
+	sudo apt install libssl-dev
