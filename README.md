@@ -161,6 +161,7 @@ or:
 
 ```bash
     sudo apt install libmysqlclient-dev
+    sudo apt install libssl-dev
 ```
 
 In the directory containing either the clone or the extracted zip files, compile with GCC:
