@@ -140,18 +140,19 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
     make deps && make && make install
 ```
 
-(Assumes *libmysqlclient-dev* library is not installed.)
+(Assumes *libmysqlclient-dev* and *libssl-dev* libraries are not installed.)
 
 
 #### Manual Installation
 
-Ensure the *libmysqlclient-dev* library dependency (from distro repo) is installed:
+Ensure the *libmysqlclient-dev* and *libssl-dev* dependencies (from distro repo) are installed:
 
 ```bash
     locate libmysqlclient-dev
+    locate libssl-dev
 ```
 
-If `locate` does not find the library, install on Debian-based distros with:
+If `locate` does not find each library, install on Debian-based distros with:
 
 ```bash
     make deps
@@ -189,7 +190,7 @@ or:
 
 ### Warning
 
-MySQL Brute will rapidly enlarge the MySQL error log file ( */var/log/mysql/error.log* for Debian-based distros).
+MySQL Brute will rapidly enlarge the MySQL error log file on versions 5.x ( */var/log/mysql/error.log* for Debian-based distros).
 
 ### Location
 
