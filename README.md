@@ -47,12 +47,13 @@ Alternatively a simple wordlist for testing can be the Linux dictionary (Debian 
     ./mysqlbrute -h localhost -u <username> -f /usr/share/dict/words
 ```
 
-`MAX_WORD_LEN` of `50` in *mysqlbrute.c* is fine for most wordlists. However, some wordlists have borked entries (e.g. long email addresses included). For such wordlists, increase `MAX_WORD_LEN` to `140` (or more precisely, the output of `wc -L <wordlist_file>` + 1), and re-compile to avoid the resultant buffer overrun / segfault.
+`MAX_WORD_LEN` of `50` in *mysqlbrute.c* is okay for most wordlists. However, some wordlists have borked entries (e.g. long email addresses included). For such wordlists, increase `MAX_WORD_LEN` to `140` (or more precisely, the output of `wc -L <wordlist_file>` + 1), and re-compile the source to avoid the resultant buffer overrun / segfault.
 
 Other options:
 
+```bash
     -p <port_number>
-
+```
 
 ## Executables
 
@@ -64,7 +65,7 @@ Download the executables from [Releases](https://github.com/Tinram/MySQL-Brute/r
 
 ## Speed
 
-MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a localhost socket connection &ndash; considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the vaunted multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower &ndash; around 1,000 per second on a local network.
+MySQL Brute churns through approximately 20,000 passwords per second (vanilla Core i3 desktop CPU) on a Unix localhost socket connection &ndash; considerably faster than the Bash and Python scripts I tried before creating MySQL Brute (and curiously, faster than the vaunted multi-threaded *Hydra*). However, when using a network connection, MySQL Brute is much slower &ndash; around 1,000 per second on a local network.
 
 MySQL Brute's speed bottlenecks are:
 
@@ -77,7 +78,9 @@ If more speed is needed, there is 0x0mar's multi-threaded [Mysql-bruteforce](htt
 
 ### Hydra Comparison
 
+```bash
     hydra -l wordpress -P top_100000.txt -t 4 -F localhost mysql
+```
 
 (As per the example in **Usage**, using 4 threads, ~1,050 tries per second on a Core i3.)
 
@@ -85,7 +88,7 @@ If more speed is needed, there is 0x0mar's multi-threaded [Mysql-bruteforce](htt
 
 Nmap has a MySQL attack script which cycles through common usernames.
 
-On same Core i3:
+On the same Core i3:
 
 *Statistics: Performed 50009 guesses in 9 seconds, average tps: 5556*
 
@@ -111,7 +114,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 ### Checklist
 
 + `bind-address = 127.0.0.1` (*my.cnf*; if line present: comment out with `#`, then restart mysqld)
-+ `skip-networking` (*my.cnf* - disables TCP/IP; if line present, comment out with `#`, then restart mysqld)
++ `skip-networking` (*my.cnf* &ndash; disables TCP/IP; if line present, comment out with `#`, then restart mysqld)
 + firewall rules
 + `mysql> SELECT host, user FROM mysql.user;`
 
@@ -190,11 +193,11 @@ or:
 
 ### Warning
 
-MySQL Brute will rapidly enlarge the MySQL error log file on versions 5.x ( */var/log/mysql/error.log* for Debian-based distros).
+MySQL Brute will rapidly enlarge the MySQL error log file on MySQL versions 5.x ( */var/log/mysql/error.log* for Debian-based distros).
 
 ### Location
 
-It is more convenient for MySQL Brute to be available from any directory location via the *$PATH* system variable (rather than copying the executable file to the directory where needed).
+It may be more convenient for MySQL Brute to be available from any directory location via the *$PATH* system variable (rather than copying the executable file to the directory where needed).
 
 ```bash
     make install
