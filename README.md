@@ -193,7 +193,12 @@ or:
 
 ### Warning
 
-MySQL Brute will rapidly enlarge the MySQL error log file on MySQL versions 5.x ( */var/log/mysql/error.log* for Debian-based distros).
+MySQL Brute will rapidly enlarge the MySQL error log files:
+
++ version 5.x &ndash; */var/log/mysql/error.log*
++ version 8 &ndash; */var/lib/mysql/&lt;pc_name&gt;.log* (with `general_log` variable enabled)
+
+<small>(locations for Debian-based distros)</small>
 
 ### Location
 
