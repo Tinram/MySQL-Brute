@@ -1,0 +1,21 @@
+
+# makefile for MySQL Brute using MariaDB libraries
+# (tested with mariadb-server-10.1 on Ubuntu 18.04)
+
+CC = gcc
+CFLAGS = -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
+NAME = mysqlbrute
+
+MYSQLCFLAGS = $(shell mariadb_config --cflags)
+MYSQLLIBS = $(shell mariadb_config --libs)
+
+$(NAME):
+	$(CC) $(NAME).c -o $(NAME) $(CFLAGS) $(MYSQLCFLAGS) $(MYSQLLIBS)
+
+install:
+	sudo cp $(NAME) /usr/local/bin/$(NAME)
+	@echo "Attempted to copy $(NAME) to /usr/local/bin"
+
+deps:
+	sudo apt install libmariadb-dev
+	sudo apt install libssl-dev
