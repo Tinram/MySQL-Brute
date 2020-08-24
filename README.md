@@ -139,7 +139,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 #### Make Installation
 
-(MySQL Libraries, see further below for MariaDB.)
+##### MySQL libraries, see further below for MariaDB.
 
 ```bash
     make deps && make && make install
@@ -150,7 +150,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 #### Manual Installation
 
-##### MySQL Libraries
+#### MySQL Libraries
 
 Ensure the *libmysqlclient-dev* and *libssl-dev* dependencies (from distro repo) are installed:
 
@@ -168,8 +168,7 @@ If `locate` does not find each library, install on Debian-based distros with:
 or:
 
 ```bash
-    sudo apt install libmysqlclient-dev
-    sudo apt install libssl-dev
+    sudo apt install libmysqlclient-dev libssl-dev
 ```
 
 In the directory containing either the clone or the extracted zip files, compile with GCC:
@@ -192,13 +191,12 @@ or:
     clang mysqlbrute.c $(mysql_config --cflags) $(mysql_config --libs) -o mysqlbrute -O3 -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
 ```
 
-##### MariaDB Libraries
+#### MariaDB Libraries
 
 Delete *makefile* and rename *makefile_mariadb* to *makefile*.
 
 ```bash
-    make deps
-    make
+    make deps && make
 ```
 
 or:
