@@ -139,6 +139,8 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 #### Make Installation
 
+(MySQL Libraries, see further below for MariaDB.)
+
 ```bash
     make deps && make && make install
 ```
@@ -147,6 +149,8 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 
 #### Manual Installation
+
+##### MySQL Libraries
 
 Ensure the *libmysqlclient-dev* and *libssl-dev* dependencies (from distro repo) are installed:
 
@@ -186,6 +190,32 @@ or:
 
 ```bash
     clang mysqlbrute.c $(mysql_config --cflags) $(mysql_config --libs) -o mysqlbrute -O3 -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
+```
+
+##### MariaDB Libraries
+
+Delete *makefile* and rename *makefile_mariadb* to *makefile*.
+
+```bash
+    make deps
+    make
+```
+
+or:
+
+```bash
+    sudo apt install libmariadb-dev
+    sudo apt install libssl-dev
+```
+
+(*h0ek* also specifies *libmariadb-dev-compat* as a dependency; in testing on Ubuntu 18.04 this library was not required for compilation.)
+
+or:
+
+**GCC:**
+
+```bash
+    gcc mysqlbrute.c $(mariadb_config --cflags) $(mariadb_config --libs) -o mysqlbrute -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
 ```
 
 
