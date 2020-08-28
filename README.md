@@ -39,7 +39,7 @@ PLESK-managed MySQL *admin* user is a candidate.
     ./mysqlbrute -h localhost -u wordpress -f top_100000.txt
 ```
 
-There are many wordlist files available e.g. [Daniel Miessler's](https://github.com/danielmiessler/SecLists/tree/master/Passwords).
+Download a password-only wordlist e.g. [Daniel Miessler's](https://github.com/danielmiessler/SecLists/tree/master/Passwords) (others can be username:password combinations).
 
 Alternatively a simple wordlist for testing can be the Linux dictionary (Debian path):
 
@@ -139,7 +139,7 @@ First attempt to connect to a remote MySQL connection from the terminal (use any
 
 #### Make Installation
 
-##### MySQL libraries, see further below for MariaDB.
+##### MySQL libraries (see further below for MariaDB).
 
 ```bash
     make deps && make && make install
@@ -196,7 +196,7 @@ or:
 Delete *makefile* and rename *makefile_mariadb* to *makefile*.
 
 ```bash
-    make deps && make
+    make deps && make && make install
 ```
 
 or:
@@ -206,7 +206,7 @@ or:
     sudo apt install libssl-dev
 ```
 
-(*h0ek* also specifies *libmariadb-dev-compat* as a dependency; in testing on Ubuntu 18.04 this library was not required for compilation.)
+([h0ek](https://github.com/h0ek) also specifies *libmariadb-dev-compat* as a dependency; in testing on Ubuntu 18.04 this library was not required for compilation, but it may well be in other scenarios.)
 
 or:
 
