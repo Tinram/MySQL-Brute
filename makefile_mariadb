@@ -3,14 +3,17 @@
 # (tested with mariadb-server-10.1 on Ubuntu 18.04)
 
 CC = gcc
-CFLAGS = -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
-NAME = mysqlbrute
+
+SRCNAME = mysqlbrute
+NAME = mariabrute
+
+CFLAGS = -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -Wformat=2 -Wunused-parameter -Wshadow -Wwrite-strings -Wold-style-definition -Wredundant-decls -Wnested-externs -Wmissing-include-dirs -Wformat-security -std=gnu99 -flto -s
 
 MYSQLCFLAGS = $(shell mariadb_config --cflags)
 MYSQLLIBS = $(shell mariadb_config --libs)
 
 $(NAME):
-	$(CC) $(NAME).c -o $(NAME) $(CFLAGS) $(MYSQLCFLAGS) $(MYSQLLIBS)
+	$(CC) $(SRCNAME).c -o $(NAME) $(CFLAGS) $(MYSQLCFLAGS) $(MYSQLLIBS)
 
 install:
 	sudo cp $(NAME) /usr/local/bin/$(NAME)
