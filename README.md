@@ -3,7 +3,7 @@
 
 ### MySQL brute-forcer.
 
-##### MySQL Brute v.0.10
+##### MySQL Brute v.0.11
 
 
 [1]: https://tinram.github.io/images/mysqlbrute.png
@@ -202,8 +202,8 @@ Delete *makefile* and rename *makefile_mariadb* to *makefile*.
 or:
 
 ```bash
-    sudo apt install libmariadb-dev
-    sudo apt install libssl-dev
+    sudo apt install libmariadb-dev libssl-dev
+    make
 ```
 
 ([h0ek](https://github.com/h0ek) also specifies *libmariadb-dev-compat* as a dependency; in testing on Ubuntu 18.04 this library was not required for compilation, but it may well be in other scenarios.)
@@ -213,7 +213,7 @@ or:
 **GCC:**
 
 ```bash
-    gcc mysqlbrute.c $(mariadb_config --cflags) $(mariadb_config --libs) -o mysqlbrute -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
+    gcc mysqlbrute.c $(mariadb_config --cflags) $(mariadb_config --libs) -o mariabrute -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
 ```
 
 
