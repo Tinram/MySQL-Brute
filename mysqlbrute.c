@@ -1,24 +1,24 @@
 
 /**
 	* MySQL Brute
+	* mysqlbrute.c
 	*
-	* mysqld bruteforcer using word lists.
+	* MySQLd bruteforcer using word lists.
 	*
 	* @author        Martin Latter
 	* @copyright     Martin Latter, 27/05/2017
-	* @version       0.10
+	* @version       0.11
 	* @license       GNU GPL version 3.0 (GPL v3); https://www.gnu.org/licenses/gpl-3.0.html
 	* @link          https://github.com/Tinram/MySQL-Brute.git
 	*
 	* Compile:
 	* (Linux GCC x64)
 	*                 required dependency: libmysqlclient-dev
-	*                 gcc mysqlbrute.c $(mysql_config --cflags) $(mysql_config --libs) -o mysqlbrute -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -std=gnu99 -s
+	*                 gcc mysqlbrute.c $(mysql_config --cflags) $(mysql_config --libs) -o mysqlbrute -Ofast -Wall -Wextra -Wuninitialized -Wunused -Werror -Wformat=2 -Wunused-parameter -Wshadow -Wwrite-strings -Wstrict-prototypes -Wold-style-definition -Wredundant-decls -Wnested-externs -Wmissing-include-dirs -Wformat-security -std=gnu99 -flto -s # -mtune=native -march=native
 	*
 	* Usage:
 	*                 ./mysqlbrute --help
 	*                 ./mysqlbrute -h <host> -u <username> -f <wordlist_file>
-	*
 */
 
 
@@ -30,11 +30,12 @@
 #include <mysql.h>
 
 
-#define MB_VERSION "0.10"
+#define APP_NAME "MySQL Brute"
+#define MB_VERSION "0.11"
 #define MAX_WORD_LEN 50
 
 
-void menu(char* pProgname);
+void menu(char* const pFName);
 unsigned int options(int iArgCount, char* aArgV[]);
 
 
@@ -104,7 +105,6 @@ int main(int iArgCount, char* aArgV[]) {
 			fprintf(stdout, "line: %u\r", iWordCount);
 			fflush(stdout);
 		}
-
 	}
 
 	/* close file */
@@ -206,12 +206,12 @@ unsigned int options(int iArgCount, char* aArgV[]) {
 	}
 	else if (iVersion == 1) {
 
-		fprintf(stdout, "\nMySQL Brute v.%s\n\n", MB_VERSION);
+		fprintf(stdout, "\n%s v.%s\n\n", APP_NAME, MB_VERSION);
 		return 0;
 	}
 	else if (pHost == NULL || pFilename == NULL || pUser == NULL) {
 
-		fprintf(stderr, "\nMySQL Brute: use '%s --help' for help\n\n", aArgV[0]);
+		fprintf(stderr, "\n%s: use '%s --help' for help\n\n", APP_NAME, aArgV[0]);
 		return 0;
 	}
 	else {
@@ -223,13 +223,13 @@ unsigned int options(int iArgCount, char* aArgV[]) {
 /**
 	* Display menu.
 	*
-	* @param   char* pProgname, filename from aArgV[0]
+	* @param   char* pFName, filename from aArgV[0]
 	* @return  void
 */
 
-void menu(char* pProgname) {
+void menu(char* const pFName) {
 
-	fprintf(stdout, "\nMySQL Brute v.%s\nby Tinram", MB_VERSION);
+	fprintf(stdout, "\n%s v.%s\nby Tinram", APP_NAME, MB_VERSION);
 	fprintf(stdout, "\n\nUsage:\n");
-	fprintf(stdout, "\t%s -h <host> -u <user> -f <file> [-p port]\n\n", pProgname);
+	fprintf(stdout, "\t%s -h <host> -u <user> -f <file> [-p port]\n\n", pFName);
 }
